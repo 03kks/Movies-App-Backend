@@ -1,7 +1,8 @@
 module.exports = (mongoose) => {
-    const User = mongoose.model(
-      "User",
-      mongoose.Schema({
+  const User = mongoose.model(
+    "user",
+    mongoose.Schema(
+      {
         userid: Number,
         email: {
           type: String,
@@ -39,7 +40,9 @@ module.exports = (mongoose) => {
             ],
           },
         ],
-      })
-    );
-    return User;
-  };
+      },
+      { timestamps: true }
+    )
+  );
+  return User;
+};
