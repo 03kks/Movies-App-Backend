@@ -85,15 +85,15 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    if (!req.body.username) {
-        res.status(400).send({ message: "Username not provided" });
+    if (!req.body.userid) {
+        res.status(400).send({ message: "User ID not provided" });
         return;
     }
 
-    const filter = { username: req.body.username };
+    const filter = { userid: req.body.userid };
     User.findOne(filter, (err, user) => {
         if (user === null) {
-            res.status(401).send({ message: "Username does not exist" });
+            res.status(401).send({ message: "User ID does not exist" });
             return;
         } else {
             user.isLoggedIn = false;
@@ -108,3 +108,37 @@ exports.logout = (req, res) => {
         }
     });
 };
+
+exports.getCouponCode = (req, res) => {
+    const user = req.query.userid;
+    User.find({ userid: user }).select("coupens")
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({ message: "Some error occured while fetching coupons" });
+        });
+};
+
+exports.bookShow = (req, res) => {
+    if (!req.body.userid && !req.body.bookingRequests) {
+        res.status(400).send({ message: "User ID or Booking Requests not provided" });
+        return;
+    }
+    const filter = { userid: req.body.userid };
+    User.findOne(filter, (err, user) => {
+        if (user === null) {
+            res.status(401).send({ message: "User does not exist" });
+            return;
+        } else {
+            user.bookingRequests = req.body.bookingRequests;
+            User.findOneAndUpdate(filter, user)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({ message: "Some Error Occured while creating Booking Request" });
+                })
+        }
+    });
+}; 
