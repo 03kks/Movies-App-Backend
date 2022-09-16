@@ -7,7 +7,7 @@ exports.findAllArtists = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Some Error Occured while fetching artists",
+        message: "Some Error Occurred while fetching artists",
       });
     });
 }; 

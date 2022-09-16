@@ -5,14 +5,14 @@ const { btoa, atob } = require('b2a');
 const tokgen = new TokenGenerator(TokenGenerator.BASE62);
 
 exports.signUp = (req, res) => {
-    //Validate API call
+
     if (!req.body.email || !req.body.password) {
         res.status(400).send({
             message: "Please provide emailId and password to continue.",
         });
         return;
     }
-    //filter db based on email to check for duplicate user
+
     const filter = { email: req.body.email };
     const username = btoa(req.body.first_name + req.body.last_name);
     const password = btoa(req.body.password);
@@ -31,7 +31,7 @@ exports.signUp = (req, res) => {
                 username: username,
                 contact: req.body.contact,
                 password: password,
-                role: req.body.role ? req.body.role : "user",// set default role to user
+                role: req.body.role ? req.body.role : "user",
                 isLoggedIn: false,
                 uuid: newUuid,
                 accessToken: token,
@@ -72,7 +72,7 @@ exports.login = (req, res) => {
                     })
                     .catch((err) => {
                         res.status(500).send({
-                            message: "Some error occured.",
+                            message: "Some error occurred.",
                         });
                     });
             } else {
@@ -103,7 +103,7 @@ exports.logout = (req, res) => {
                     res.send(data);
                 })
                 .catch(err => {
-                    res.status(500).send({ message: "Some Error Occured" });
+                    res.status(500).send({ message: "Some Error occurred" });
                 });
         }
     });
@@ -111,12 +111,12 @@ exports.logout = (req, res) => {
 
 exports.getCouponCode = (req, res) => {
     const user = req.query.userid;
-    User.find({ userid: user }).select("coupens")
+    User.find({ userid: user }).select("coupons")
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({ message: "Some error occured while fetching coupons" });
+            res.status(500).send({ message: "Some error occurred while fetching coupons" });
         });
 };
 
@@ -137,7 +137,7 @@ exports.bookShow = (req, res) => {
                     res.send(data);
                 })
                 .catch(err => {
-                    res.status(500).send({ message: "Some Error Occured while creating Booking Request" });
+                    res.status(500).send({ message: "Some Error Occurred while creating Booking Request" });
                 })
         }
     });

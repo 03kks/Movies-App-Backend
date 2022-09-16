@@ -6,8 +6,7 @@ module.exports = (router) => {
     router.post("/logout", userController.logout);
   
   
-    router.get("/getcouponcode", userController.getCouponCode);
-  
+    router.get("/coupons", userController.getCouponCode);
     router.put("/bookshow", userController.bookShow);
     return router;
   } 
