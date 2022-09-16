@@ -2,8 +2,8 @@ const Artist = require("../models").artist;
 
 exports.findAllArtists = (req, res) => {
   Artist.find({})
-    .then((data) => {
-      res.json({ data: data });
+    .then(data => {
+      res.send(data);
     })
     .catch((err) => {
       res.status(500).send({

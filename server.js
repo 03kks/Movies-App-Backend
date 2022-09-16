@@ -1,5 +1,5 @@
 const db = require("./models");
-const PORT = 3000;
+const PORT = 8085;
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const corsOptions = {
